@@ -54,64 +54,64 @@ import (
 )
 
 func main() {
-	t1 := "So much of modern-day life revolves around using opposable thumbs, from holding a hammer to build a home to ordering food delivery on our smartphones. But for our ancestors, the uses were much simpler. Strong and nimble thumbs meant that they could better create and wield tools, stones and bones for killing large animals for food"
-	t2 := "A lot of life today involves using opposable thumbs, from using a hammer to build a house to ordering something on our smartphones. But for our predecessors, the uses were much more simple. Powerful and dexterous thumbs meant that they could better make and use tools, stones and bones for killing large animals to eat"
+    t1 := "So much of modern-day life revolves around using opposable thumbs, from holding a hammer to build a home to ordering food delivery on our smartphones. But for our ancestors, the uses were much simpler. Strong and nimble thumbs meant that they could better create and wield tools, stones and bones for killing large animals for food"
+    t2 := "A lot of life today involves using opposable thumbs, from using a hammer to build a house to ordering something on our smartphones. But for our predecessors, the uses were much more simple. Powerful and dexterous thumbs meant that they could better make and use tools, stones and bones for killing large animals to eat"
 
     // load the word2vec model
-	m, err := text.LoadModel("yourModelFile")
+    m, err := text.LoadModel("yourModelFile")
 
-	if err != nil {
-		log.Fatal(err)
-	}
-
-    // extract paragraphs and sentences from the text
-	t1Paragraphs, t1Sentences, err := text.ExtractAll(t1)
-	if err != nil {
-		log.Fatal(err)
-	}
+    if err != nil {
+        log.Fatal(err)
+    }
 
     // extract paragraphs and sentences from the text
-	t2Paragraphs, t2Sentences, err := text.ExtractAll(t2)
-	if err != nil {
-		log.Fatal(err)
-	}
+    t1Paragraphs, t1Sentences, err := text.ExtractAll(t1)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // extract paragraphs and sentences from the text
+    t2Paragraphs, t2Sentences, err := text.ExtractAll(t2)
+    if err != nil {
+        log.Fatal(err)
+    }
 
     // compare the two texts and a map of sentences (from 1st document)
     // paired to sentences (from 2nd document) along with a similarity score 
-	sim, err := m.MostSimilarSentences(t1Sentences, t2Sentences)
-	if err != nil {
-		log.Fatal(err)
-	}
+    sim, err := m.MostSimilarSentences(t1Sentences, t2Sentences)
+    if err != nil {
+        log.Fatal(err)
+    }
 
     // iterate over sentence array and display data
-	for _, sentence := range t1Sentences {
-		simSentence := sim[sentence]
-		if simSentence.Sentence != "" {
-			fmt.Println()
-			fmt.Println(sentence, "is most similar to:", simSentence.Sentence)
-			fmt.Printf("similarity: %v\n", simSentence.Score)
-			fmt.Println()
-		}
-	}
+    for _, sentence := range t1Sentences {
+        simSentence := sim[sentence]
+        if simSentence.Sentence != "" {
+            fmt.Println()
+            fmt.Println(sentence, "is most similar to:", simSentence.Sentence)
+            fmt.Printf("similarity: %v\n", simSentence.Score)
+            fmt.Println()
+        }
+    }
 
     // compare the two texts and a map of paragraphs (from 1st document)
     // paired to paragraphs (from 2nd document) along with a similarity score 
-	simPara, err := m.MostSimilarParagraphs(t1Paragraphs, t2Paragraphs)
-	if err != nil {
-		log.Fatal(err)
-	}
+    simPara, err := m.MostSimilarParagraphs(t1Paragraphs, t2Paragraphs)
+    if err != nil {
+        log.Fatal(err)
+    }
 
     // iterate over paragraph array and display data
-	for _, para := range t1Paragraphs {
-		simParagraph := simPara[para]
-		if simParagraph.Paragraph != "" {
-			fmt.Println()
-			fmt.Println(para, "is most similar to:", simParagraph.Paragraph)
-			fmt.Printf("similarity: %v\n", simParagraph.Score)
-			fmt.Println()
-		}
-	}
-}
+    for _, para := range t1Paragraphs {
+        simParagraph := simPara[para]
+        if simParagraph.Paragraph != "" {
+            fmt.Println()
+            fmt.Println(para, "is most similar to:", simParagraph.Paragraph)
+            fmt.Printf("similarity: %v\n", simParagraph.Score)
+            fmt.Println()
+        }
+    }
+    }
 ```
 
 
