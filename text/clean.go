@@ -8,7 +8,7 @@ import (
 	"github.com/bbalet/stopwords"
 )
 
-func cleanString(s string, model *Word2Vec) Sentence {
+func cleanString(s string, model *Word2Vec) []string {
 	var words []string
 	for _, word := range strings.Split(stopwords.CleanString(s, "EN", false), " ") {
 		word = strings.TrimSpace(word)
