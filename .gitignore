@@ -13,6 +13,9 @@ dist
 # vscode artifacts
 .vscode
 
+# main file
+main.go
+
 # binary
 text-processor 
 

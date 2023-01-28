@@ -1,35 +1,40 @@
 package text
 
 import (
-	"fmt"
-
 	rake "github.com/afjoseph/RAKE.Go"
 	"github.com/jonreiter/govader"
 )
 
-func GetKeyWords(s string) {
-	candidates := rake.RunRake(s)
-
-	fmt.Println("key words:")
-	for _, candidate := range candidates {
-		fmt.Println(candidate.Key)
-	}
+type KeyPhrase struct {
+	Phrase string
+	Score  float64
 }
 
-func GetSentiment(s string) {
+func GetKeyPhrases(s string) []KeyPhrase {
+	phrases := []KeyPhrase{}
+	candidates := rake.RunRake(s)
+	for _, candidate := range candidates {
+		phrases = append(phrases, KeyPhrase{
+			Phrase: candidate.Key,
+			Score:  candidate.Value,
+		})
+	}
+
+	return phrases
+}
+
+func GetSentiment(s string) string {
 	analyzer := govader.NewSentimentIntensityAnalyzer()
 	sentiment := analyzer.PolarityScores(s)
 
-	var sent string
-
 	switch comp := sentiment.Compound; {
 	case comp >= 0.05:
-		sent = "positive"
+		return "positive"
 	case comp > -0.05 && comp < 0.05:
-		sent = "neutral"
+		return "neutral"
 	case comp <= -0.05:
-		sent = "negative"
+		return "negative"
+	default:
+		return "neutral"
 	}
-
-	fmt.Println("sentiment:", sent)
 }

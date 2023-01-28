@@ -17,18 +17,6 @@ type Text struct {
 type Paragraph []Sentence
 type Sentence []string
 
-// type Paragraph struct {
-// 	Sentences  []Sentence
-// 	Expression word2vec.Expr
-// }
-
-// type Sentence struct {
-// 	WordArr    []string
-// 	Expression word2vec.Expr
-// }
-
-// type ParagraphExpression
-
 func NewText(rawText string) *Text {
 	return &Text{
 		Raw: rawText,
@@ -57,7 +45,7 @@ func extractSentences(text string, model *Word2Vec) ([]Sentence, error) {
 	tokenizer, err := english.NewSentenceTokenizer(nil)
 
 	if err != nil {
-		return nil, fmt.Errorf("failed to tokenize text %s: %v", text, err)
+		return nil, fmt.Errorf("failed to tokenize text %s: %w", text, err)
 	}
 
 	for _, sentence := range tokenizer.Tokenize(text) {
@@ -75,7 +63,7 @@ func ExtractSentences(text string) ([]string, error) {
 	tokenizer, err := english.NewSentenceTokenizer(nil)
 
 	if err != nil {
-		return nil, fmt.Errorf("failed to tokenize text %s: %v", text, err)
+		return nil, fmt.Errorf("failed to tokenize text %s: %w", text, err)
 	}
 
 	for _, sentence := range tokenizer.Tokenize(text) {
