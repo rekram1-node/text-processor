@@ -12,6 +12,10 @@ NLP utility library to interact with text documents using a [Word2vec Model](htt
 * Tokenization, stop word removing, vectorization (done internally)
 * Getting key phrases and general sentiment
 
+## How it works
+
+![text-processor](docs/assets/flowChart.png)
+
 ## Getting Started
 
 ### Prerequisites
