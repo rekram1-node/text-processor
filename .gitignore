@@ -1,0 +1,26 @@
+# macOS artifacts
+.DS_Store
+
+# task artifacts
+.task
+
+# environment config
+.env
+
+# goreleaser artifacts
+dist
+
+# vscode artifacts
+.vscode
+
+# main file
+main.go
+
+# binary
+text-processor 
+
+# misc
+*.ignore
+
+# word2vec Model
+model-bin.bin
