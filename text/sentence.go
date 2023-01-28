@@ -5,11 +5,15 @@ import (
 	"github.com/jonreiter/govader"
 )
 
+// Key Value pair of govader score with phrase
 type KeyPhrase struct {
+	// govader parsed phrase or word
 	Phrase string
-	Score  float64
+	// govader score
+	Score float64
 }
 
+// Parses out phrases along with their score using govader
 func GetKeyPhrases(s string) []KeyPhrase {
 	phrases := []KeyPhrase{}
 	candidates := rake.RunRake(s)
@@ -23,6 +27,8 @@ func GetKeyPhrases(s string) []KeyPhrase {
 	return phrases
 }
 
+// Uses RAKE.Go to get the sentiment from text
+// responses include: "positive", "neutral", or "negative"
 func GetSentiment(s string) string {
 	analyzer := govader.NewSentimentIntensityAnalyzer()
 	sentiment := analyzer.PolarityScores(s)

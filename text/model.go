@@ -1,21 +1,22 @@
 package text
 
 import (
-	"errors"
-	"log"
 	"os"
 
 	"code.sajari.com/word2vec"
 )
 
+// Holds loaded Model
 type Word2Vec struct {
 	*word2vec.Model
 }
 
+// loads the word2vec model
 func LoadModel(filename string) (*Word2Vec, error) {
 	f, err := os.Open(filename)
-	if errors.Is(err, os.ErrNotExist) {
-		f = getModel(filename)
+
+	if err != nil {
+		return nil, err
 	}
 
 	defer f.Close()
@@ -31,16 +32,7 @@ func LoadModel(filename string) (*Word2Vec, error) {
 	}, nil
 }
 
-func getModel(filename string) *os.File {
-	f, err := os.Open(filename)
-
-	if err != nil {
-		log.Fatalf("failed to open model: %v", err)
-	}
-
-	return f
-}
-
+// checks the similarity between two cleaned word arrays
 func (w2v *Word2Vec) CheckSimilarity(cleanedSourceWordArr, cleanedTargetWordArr []string) (float32, error) {
 	sourceExpression := GetExpression(cleanedSourceWordArr)
 	targetExpression := GetExpression(cleanedTargetWordArr)
@@ -48,6 +40,7 @@ func (w2v *Word2Vec) CheckSimilarity(cleanedSourceWordArr, cleanedTargetWordArr 
 	return w2v.Model.Cos(sourceExpression, targetExpression)
 }
 
+// turns a wordarray into word2vec expression
 func GetExpression(cleanedWordArr []string) word2vec.Expr {
 	expr := word2vec.Expr{}
 	for _, cleanedWord := range cleanedWordArr {

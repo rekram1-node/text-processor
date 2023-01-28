@@ -1,5 +1,6 @@
 package text
 
+// English Language "Stop Words"
 var stopWords = []string{
 	"a",
 	"a's",

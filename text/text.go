@@ -7,6 +7,7 @@ import (
 	"github.com/neurosnap/sentences/english"
 )
 
+// Extract all sentences from raw document
 func ExtractSentences(text string) ([]string, error) {
 	var extractedSentences []string
 	tokenizer, err := english.NewSentenceTokenizer(nil)
@@ -24,6 +25,7 @@ func ExtractSentences(text string) ([]string, error) {
 	return extractedSentences, nil
 }
 
+// Extract all paragraphs and sentences from raw document
 func ExtractAll(text string) ([]string, []string, error) {
 	var sentenceArr []string
 	cleanedText := strings.ReplaceAll(text, "\n\t", "\n\n")

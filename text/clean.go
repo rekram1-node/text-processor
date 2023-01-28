@@ -8,6 +8,7 @@ import (
 	"github.com/bbalet/stopwords"
 )
 
+// cleans a string into a word array
 func cleanString(s string, model *Word2Vec) []string {
 	var words []string
 	for _, word := range strings.Split(stopwords.CleanString(s, "EN", false), " ") {
@@ -27,6 +28,7 @@ func cleanString(s string, model *Word2Vec) []string {
 	return words
 }
 
+// trims the word
 func cleanWord(s string) string {
 	// Remove "St.", for example in "St. Paul"
 	newStr := strings.ReplaceAll(s, "St. ", "")
@@ -61,6 +63,7 @@ func cleanWord(s string) string {
 	return strings.ToLower(newStr)
 }
 
+// checks if a word is contained in the model
 func wordInModel(w string, model *Word2Vec) bool {
 	e := word2vec.Expr{}
 	e.Add(1, w)
