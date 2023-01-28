@@ -72,3 +72,11 @@ func (w2v *Word2Vec) MostSimilarParagraphs(paragraphArr1, paragraphArr2 []string
 
 	return mostSim, nil
 }
+
+// get the similarity between two whole text strings
+func (w2v *Word2Vec) OverallSimilarity(doc1, doc2 string) (float32, error) {
+	cleanedDoc1 := cleanString(doc1, w2v)
+	cleanedDoc2 := cleanString(doc2, w2v)
+
+	return w2v.CheckSimilarity(cleanedDoc1, cleanedDoc2)
+}
