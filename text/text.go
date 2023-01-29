@@ -30,6 +30,7 @@ func ExtractAll(text string) ([]string, []string, error) {
 	var sentenceArr []string
 	cleanedText := strings.ReplaceAll(text, "\n\t", "\n\n")
 	paragraphArr := strings.Split(cleanedText, "\n\n")
+	paragraphArr = deleteEmpty(paragraphArr)
 
 	for _, paragraph := range paragraphArr {
 		sentences, err := ExtractSentences(paragraph)
@@ -40,4 +41,15 @@ func ExtractAll(text string) ([]string, []string, error) {
 	}
 
 	return paragraphArr, sentenceArr, nil
+}
+
+func deleteEmpty(s []string) []string {
+	var r []string
+	for _, str := range s {
+		if str != "" {
+			r = append(r, str)
+		}
+	}
+
+	return r
 }

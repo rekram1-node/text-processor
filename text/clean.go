@@ -59,6 +59,9 @@ func cleanWord(s string) string {
 	b := regexp.MustCompile(`[\s]{2,}`)
 	newStr = b.ReplaceAllString(newStr, " ")
 
+	// re := regexp.MustCompile("[[:^ascii:]]")
+	// s = re.ReplaceAllLiteralString(s, "")
+
 	// lower case
 	return strings.ToLower(newStr)
 }
