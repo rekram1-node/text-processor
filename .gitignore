@@ -24,3 +24,4 @@ text-processor
 
 # word2vec Model
 model-bin.bin
+*.bin

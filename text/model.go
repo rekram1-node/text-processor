@@ -34,6 +34,10 @@ func LoadModel(filename string) (*Word2Vec, error) {
 
 // checks the similarity between two cleaned word arrays
 func (w2v *Word2Vec) CheckSimilarity(cleanedSourceWordArr, cleanedTargetWordArr []string) (float32, error) {
+	if len(cleanedSourceWordArr) == 0 || len(cleanedTargetWordArr) == 0 {
+		return 0.00, nil
+	}
+
 	sourceExpression := GetExpression(cleanedSourceWordArr)
 	targetExpression := GetExpression(cleanedTargetWordArr)
 
@@ -46,5 +50,6 @@ func GetExpression(cleanedWordArr []string) word2vec.Expr {
 	for _, cleanedWord := range cleanedWordArr {
 		expr.Add(1, cleanedWord)
 	}
+
 	return expr
 }
